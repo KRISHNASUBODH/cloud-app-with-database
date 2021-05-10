@@ -107,7 +107,8 @@ class Question(models.Model):
     # question text
     # question grade/mark
     question_text = models.TextField()
-    grade = models.FloatField()
+    question_text.save()
+    grade = models.FloatField(0.0)
     lesson = models.ForeignKey(Lesson, null=False, on_delete=models.CASCADE)
     course = models.OneToManyField(Course)
     # <HINT> A sample model method to calculate if learner get the score of the question
@@ -128,7 +129,9 @@ class Question(models.Model):
     # Other fields and methods you would like to design
  class Choice(models.Model):
      choice_text = models.CharField(null=False, max_length=30)
-     is_correct = models.BooleanField()
+     choice_text.save()
+     question = models.OneToManyField(Question, null=False, on_delete=models.CASCADE)
+     is_correct = models.BooleanField(default=True)
      question_id = models.ForeignKey(Question, null=False, on_delete=models.CASCADE)
 
 # <HINT> The submission model
