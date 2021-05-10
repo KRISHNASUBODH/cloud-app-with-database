@@ -108,7 +108,7 @@ class Question(models.Model):
     # question grade/mark
     question_text = models.TextField()
     question_text.save()
-    grade = models.FloatField(0.0)
+    grade = models.FloatField(default=0.0)
     lesson = models.ForeignKey(Lesson, null=False, on_delete=models.CASCADE)
     course = models.OneToManyField(Course)
     # <HINT> A sample model method to calculate if learner get the score of the question
