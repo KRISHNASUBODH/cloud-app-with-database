@@ -106,11 +106,10 @@ class Question(models.Model):
     # Foreign key to lesson
     # question text
     # question grade/mark
-    question_text = models.TextField()
-    question_text.save()
+    question_text = models.CharField(max_length=200)
     grade = models.FloatField(default=0.0)
     lesson = models.ForeignKey(Lesson, null=False, on_delete=models.CASCADE)
-    course = models.OneToManyField(Course)
+    courses = models.ManyToManyField(Course)
     # <HINT> A sample model method to calculate if learner get the score of the question
     def is_get_score(self, selected_ids):
         all_answers = self.choice_set.filter(is_correct=True).count()
@@ -127,10 +126,9 @@ class Question(models.Model):
     # Choice content
     # Indicate if this choice of the question is a correct one or not
     # Other fields and methods you would like to design
- class Choice(models.Model):
-     choice_text = models.CharField(null=False, max_length=30)
-     choice_text.save()
-     question = models.OneToManyField(Question, null=False, on_delete=models.CASCADE)
+class Choice(models.Model):
+     choice_text = models.CharField(null=False, max_length=50)
+    # questions = models.ManyToManyField(Question, null=False)
      is_correct = models.BooleanField(default=True)
      question_id = models.ForeignKey(Question, null=False, on_delete=models.CASCADE)
 
